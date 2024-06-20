@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   db:
-    image: mariadb:11.1
-    container_name: db_${CONTAINER_NAME}
+    image: mariadb:${MARIA_DB_VERSION}
+    container_name: ${CONTAINER_NAME}_db
     restart: ${RESTART_OPTION}
     environment:
       MYSQL_ROOT_PASSWORD: secret
@@ -16,12 +16,16 @@ services:
       - ./docker/mariadb:/var/lib/mysql
     networks:
       default: null
+
   www:
     image: www_${CONTAINER_NAME}:${TAG}
-    container_name: www_${CONTAINER_NAME}
+    container_name: ${CONTAINER_NAME}_www
     restart: ${RESTART_OPTION}
     build:
       context: ./docker
+      args:
+        PHP_VERSION: ${PHP_VERSION}
+        COMPOSER_VERSION: ${COMPOSER_VERSION}
     ports:
       - ${WWW_PORT}:80
     volumes:
@@ -31,9 +35,10 @@ services:
       - db
     networks:
       default: null
+
   phpma:
     image: phpmyadmin/phpmyadmin
-    container_name: phpma_${CONTAINER_NAME}
+    container_name: ${CONTAINER_NAME}_phpma
     restart: ${RESTART_OPTION}
     environment:
       PMA_ARBITRARY: 1

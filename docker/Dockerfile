@@ -1,4 +1,9 @@
-FROM php:8.2-apache
+ARG PHP_VERSION
+ARG COMPOSER_VERSION
+
+FROM composer:${COMPOSER_VERSION} as composer 
+
+FROM php:${PHP_VERSION}-apache
 
 RUN apt-get update \
     && apt-get install -y zlib1g-dev g++ git libicu-dev zip libzip-dev zip \
@@ -12,7 +17,7 @@ RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
 
 WORKDIR /var/www
 
-COPY --from=composer:2.7.1 /usr/bin/composer /usr/bin/composer
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN set -uex; \
   apt-get update; \

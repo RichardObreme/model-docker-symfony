@@ -1,3 +1,5 @@
+include .env
+
 # Variables
 DOCKER_COMPOSE = docker compose
 EXEC = $(DOCKER_COMPOSE) exec www
@@ -6,9 +8,8 @@ SYMFONY_CONSOLE = $(EXEC) php bin/console
 ## —— 🐳 Docker ——
 create: ## Create the Symfony project
 	$(MAKE) start
-	composer create-project symfony/skeleton:"7.0.*" app
-	cd app
-	composer require webapp
+	composer create-project symfony/skeleton:"${SYMFONY_VERSION}" ${PROJECT_DIR}
+	cd ${PROJECT_DIR}/; composer require webapp --no-interaction
 
 start: ## Start app
 	$(DOCKER_COMPOSE) up -d
@@ -23,7 +24,7 @@ terminal:  ## Launch an interactive terminal in the container
 	$(EXEC) /bin/bash
 
 chown: ## Give all permission on the project's files to the current user and group www-data. 
-	sudo chown -R ${USER:=$(/usr/bin/id -run)}:www-data ./app
+	sudo chown -R ${USER:=$(/usr/bin/id -run)}:www-data ./${PROJECT_DIR}
 
 ## —— 🔥 App ——
 cache-clear: ## Clear cache

@@ -1,18 +1,21 @@
 # Model Docker Symfony
 
-## start
-
-*Show all the commands :*
-
-```sh
-make help
-```
+## Start
 
 ### *Create a new project :*
 
-Edit the .env file to set the parameters of container, the network name and ports.
-Execute this command to create the container and the symfony project
+Edit the `.env` file to define the container settings, network name, and ports.
+
+You can also change the name of the application directory (where symfony will be installed) and the different versions.
+
+Then run this command to create the symfony container and project.
 
 ```sh
 make create
+```
+
+*Show all the available commands :*
+
+```sh
+make help
 ```
