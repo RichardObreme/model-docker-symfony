@@ -2,7 +2,7 @@
 
 ## Start
 
-### *Create a new project :*
+### *Create a new project:*
 
 Edit the `.env` file to define the container settings, network name, and ports.
 
@@ -20,7 +20,7 @@ For a minimal Symfony run this command:
 make create-skeleton
 ```
 
-### *Initialize an existing project :*
+### *Initialize an existing project:*
 
 To Initialize an existing project, run this command:
 
@@ -40,7 +40,7 @@ or this command if fixtures existing:
 make db-init-fixtures
 ```
 
-### *Initialize an existing project :*
+### *Troubleshoot permission issues:*
 
 If there are permission problems on the files, use this command:
 
@@ -48,9 +48,9 @@ If there are permission problems on the files, use this command:
 make chown
 ```
 
-### *Help :*
+### *Help:*
 
-*Show all the available commands :*
+*Show all the available commands:*
 
 ```sh
 make help
