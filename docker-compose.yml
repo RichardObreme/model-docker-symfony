@@ -30,7 +30,7 @@ services:
       - ${WWW_PORT}:80
     volumes:
       - ./docker/apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./app:/var/www
+      - ./${PROJECT_DIR}:/var/www
     depends_on:
       - db
     networks:

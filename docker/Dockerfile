@@ -15,9 +15,9 @@ RUN apt-get update \
 
 RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
 
-WORKDIR /var/www
-
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www
 
 RUN set -uex; \
   apt-get update; \

@@ -25,11 +25,11 @@ chown: ## Give all permission on the project's files to the current user and gro
 ## —— App 💻 ——
 create-skeleton: ## Create a minimal Symfony Project (microservice, API, ...)
 	$(MAKE) start
-	composer create-project symfony/skeleton:"${SYMFONY_VERSION}" ${PROJECT_DIR}
+	$(COMPOSER) create-project symfony/skeleton:"${SYMFONY_VERSION}" ./
 
 create-full: ## Create Webapp Symfony project
 	$(MAKE) create-skeleton
-	cd ${PROJECT_DIR}/; composer require webapp --no-interaction
+	$(COMPOSER) require webapp --no-interaction
 
 init: ## Initialize an existing project
 	$(MAKE) start
