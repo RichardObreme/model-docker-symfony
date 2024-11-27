@@ -7,9 +7,9 @@ services:
     restart: ${RESTART_OPTION}
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: app
-      MYSQL_USER: symfony
-      MYSQL_PASSWORD: symfony
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - '4306:3306'
     volumes:
@@ -19,6 +19,7 @@ services:
 
   www:
     image: www_${CONTAINER_NAME}:${TAG}
+    pull_policy: build
     container_name: ${CONTAINER_NAME}_www
     restart: ${RESTART_OPTION}
     build:
@@ -36,18 +37,18 @@ services:
     networks:
       default: null
 
-  phpma:
-    image: phpmyadmin/phpmyadmin
-    container_name: ${CONTAINER_NAME}_phpma
+  adminer:
+    image: shyim/adminerevo:latest
+    container_name: ${CONTAINER_NAME}_adminer
     restart: ${RESTART_OPTION}
     environment:
-      PMA_ARBITRARY: 1
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: secret
-      UPLOAD_LIMIT: 20M
+      ADMINER_DEFAULT_DRIVER: ${ADMINER_DRIVER}
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DEFAULT_USER: ${DB_USER}
+      ADMINER_DEFAULT_PASSWORD: ${DB_PASSWORD}
+      ADMINER_DEFAULT_DB: ${DB_NAME}
     ports:
-      - ${PHPMYADMIN_PORT}:80
+      - ${ADMINER_PORT}:8080
     networks:
       default: null
 
